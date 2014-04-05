@@ -1,0 +1,115 @@
+<html>
+<head>
+    <title>nonograms</title>
+
+    <style>
+        #board {
+            margin-left: auto;
+            margin-right: auto;
+            border-collapse: collapse;
+        }
+
+        #board tr {
+            line-height: 10px;
+        }
+
+        #board td {
+            border: solid gray thin;
+            padding: 1em;
+            empty-cells: show;
+            text-align: center;
+            width: 10px;
+        }
+
+        .box {
+            background-color: green;
+        }
+
+        .space {
+            background-color: grey;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="board">
+        <tr class="clue">
+            <td class="null-cell"></td>
+            <td class="cell unknown">1</td>
+            <td class="cell unknown">1</td>
+            <td class="cell unknown">5</td>
+            <td class="cell unknown">1</td>
+            <td class="cell unknown">1</td>
+        <tr>
+            <td class="clue">1</td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+        </tr>
+        <tr>
+            <td class="clue">1</td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+        </tr>
+        <tr>
+            <td class="clue">5</td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+        </tr>
+        <tr>
+            <td class="clue">1</td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+        </tr>
+        <tr>
+            <td class="clue">1</td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+            <td class="cell unknown"></td>
+        </tr>
+    </table>
+
+
+    <script src="vendor/lodash-2.4.1.min.js"></script>
+    <script>
+        document.onreadystatechange = function() {
+            var cells;
+            if (document.readyState === 'complete') {
+                cells = document.getElementsByTagName('td');
+                _.each(cells, function(cell) {
+                    cell.addEventListener('click', function(e) {
+                        var cell = e.target || window.event.srcElement;
+                        console.log('clicky at row ' + cell.parentNode.rowIndex + ' cell ' + cell.cellIndex);
+                        if (_.contains(cell.classList, "space")) {
+                            //change to unknown
+                            cell.classList.remove("space");
+                            cell.classList.add("unknown");
+                        } else if (_.contains(cell.classList, "box")) {
+                            //change to space
+                            cell.classList.remove("box");
+                            cell.classList.add("space");
+                        } else if (_.contains(cell.classList, "unknown")) {
+                            //change to box
+                            cell.classList.remove("unknown");
+                            cell.classList.add("box");
+                        }
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
